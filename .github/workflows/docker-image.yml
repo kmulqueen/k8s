@@ -24,11 +24,10 @@ jobs:
       - name: Docker Metadata action
         uses: docker/metadata-action@v4.6.0
         with:
-          images: ${{ secrets.DOCKER_USERNAME }}/react-app:latest
+          images: ${{ secrets.DOCKER_USERNAME }}/react-app
       - name: Build and push Docker images
         uses: docker/build-push-action@v4.1.1
         with:
           context: .
           push: true
-          tags: ${{ steps.meta.outputs.tags }}
-          labels: ${{ steps.meta.outputs.labels }}
+          tags: ${{ secrets.DOCKER_USERNAME }}/react-app:latest
