@@ -2,24 +2,24 @@ name: Deploy
 
 on:
   push:
-    branches: [ main ]
+    branches: [main]
 
 jobs:
   Deploy:
     name: Deploy to EC2
     runs-on: ubuntu-latest
-    
+
     steps:
       - name: Checkout
         uses: actions/checkout@v3.5.3
       - name: Build & Deploy
         env:
-            PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
-            HOSTNAME: ${{ secrets.SSH_HOST }}
-            USER_NAME: ${{ secrets.USER_NAME }}
-            PROJECT_DIRECTORY: ${{ vars.PROJECT_DIRECTORY }}
-            BUILD_DIRECTORY: ${{ vars.BUILD_DIRECTORY }}
-      
+          PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+          HOSTNAME: ${{ secrets.SSH_HOST }}
+          USER_NAME: ${{ secrets.USER_NAME }}
+          PROJECT_DIRECTORY: ${{ vars.PROJECT_DIRECTORY }}
+          BUILD_DIRECTORY: ${{ vars.BUILD_DIRECTORY }}
+
         run: |
           echo "$PRIVATE_KEY" > private_key && chmod 600 private_key
           ssh -o StrictHostKeyChecking=no -i private_key ${USER_NAME}@${HOSTNAME} '
@@ -35,5 +35,4 @@ jobs:
               sudo npm run build &&
               cd ${BUILD_DIRECTORY} &&
               cp -R ${PROJECT_DIRECTORY}/client/build/ .
-              
-              
+              '
