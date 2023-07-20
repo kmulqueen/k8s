@@ -25,7 +25,7 @@ jobs:
           ssh -o StrictHostKeyChecking=no -i private_key ${USER_NAME}@${HOSTNAME} '
 
               # Now we have got the access of EC2 and we will start the deploy .
-              cd ${PROJECT_DIRECTORY} &&
+              cd /home/ubuntu/k8s &&
               git checkout main &&
               git fetch --all &&
               git reset --hard origin/main &&
@@ -33,6 +33,6 @@ jobs:
               cd client/ &&
               sudo npm i &&
               sudo npm run build &&
-              cd ${BUILD_DIRECTORY} &&
-              cp -R ${PROJECT_DIRECTORY}/client/build/ .
+              cd ~/home/ubuntu/app-deploy &&
+              cp -R /home/ubuntu/k8s/client/build/ .
               '
