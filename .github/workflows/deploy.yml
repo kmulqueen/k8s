@@ -34,5 +34,5 @@ jobs:
               sudo npm i &&
               sudo npm run build &&
               cd ~/app-deploy &&
-              cp -R ~/k8s/client/build/ .
+              sudo cp -R ~/k8s/client/build/ .
               '
